@@ -1,0 +1,7 @@
+.card-header {
+    color: #ffffff;
+}
+
+.btn + .btn {
+    margin-left: 10px;
+}

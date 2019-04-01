@@ -23,3 +23,7 @@ table thead {
    background: #17a2b8; 
    cursor: pointer;
 }
+
+.ride-detail{
+    margin-bottom: 10px;
+}

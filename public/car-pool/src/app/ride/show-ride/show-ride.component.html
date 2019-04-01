@@ -11,13 +11,13 @@
 
     <div class="col-md-12">
       <div class="button-actions">
-        <button class="btn btn-primary">Show All Rides</button>
-        <button class="btn btn-primary">To Office</button>
-        <button class="btn btn-primary">From Office</button>
-        <button class="btn btn-primary">Other</button>
+        <button class="btn btn-primary" (click)='redirectToBR()'>Show All Rides</button>
+        <button class="btn btn-primary" (click)='sortTo()'>To Office</button>
+        <button class="btn btn-primary" (click)='sortFrom()'>From Office</button>
+        <button class="btn btn-primary" (click)='sortOther()'>Other</button>
       </div>
       <p class="text-center">
-          Please select a ride
+        Please select a ride
       </p>
       <table class="table table-hover table-bordered">
         <thead class='bg-primary'>
@@ -28,15 +28,49 @@
           </tr>
         </thead>
         <tbody class='text-center'>
-          <tr>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+          <tr *ngFor="let ride of allRides" (click)='getRideDetails(ride._id)'>
+            <td>{{ride.pickUp}}</td>
+            <td>{{ride.destination}}</td>
+            <td>{{ride.seatsLeft}}</td>
           </tr>
         </tbody>
       </table>
+      <div class="card ride-detail" *ngIf="rideDetail">
+        <div class="card-header bg-primary">
+          Ride Detail
+        </div>
+        <div class="card-body">
+          <div class="col-md-12">
+            <table class="table table-hover table-bordered">
+              <thead class='bg-primary'>
+                <tr class="text-center">
+                  <th scope="col">id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Car</th>
+                  <th scope="col">Seats Left</th>
+                  <th scope="col">Pick-up Point</th>
+                  <th scope="col">Destination</th>
+                </tr>
+              </thead>
+              <tbody class='text-center'>
+                <tr>
+                  <td>{{rideDetail.id}}</td>
+                  <td>{{rideDetail.name}}</td>
+                  <td>{{rideDetail.car}}</td>
+                  <td>{{rideDetail.seatsLeft}}</td>
+                  <td>{{rideDetail.pickUp}}</td>
+                  <td>{{rideDetail.destination}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="button-actions">
+              <button class="btn btn-primary" (click)='bookRide()'>Book</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="button-actions">
-        <button class="btn btn-primary">Offer A Ride</button>
+        <button class="btn btn-primary" (click)='offerRide()'>Offer A Ride</button>
       </div>
     </div>
   </div>

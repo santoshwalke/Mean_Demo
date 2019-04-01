@@ -9,3 +9,8 @@
 .invalidCredentials {
     padding-bottom: 10px;
 }
+
+.card {
+    width: 40%;
+    margin: 0 auto;
+}

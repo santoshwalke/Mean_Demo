@@ -10,6 +10,9 @@ import { HeaderComponent } from './core/header/header.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { BookRideComponent } from './ride/book-ride/book-ride.component';
 import { ShowRideComponent } from './ride/show-ride/show-ride.component';
+import { OfferRideComponent } from './ride/offer-ride/offer-ride.component';
+
+import { AuthGuardService } from './auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { ShowRideComponent } from './ride/show-ride/show-ride.component';
     HeaderComponent,
     PageNotFoundComponent,
     BookRideComponent,
-    ShowRideComponent
+    ShowRideComponent,
+    OfferRideComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +30,7 @@ import { ShowRideComponent } from './ride/show-ride/show-ride.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
