@@ -11,6 +11,43 @@
         <div class="button-actions">
             <button class="btn btn-primary" (click)='showAllRide()'>Show All Rides</button>
         </div>
+      <div class="card">
+       <div class="card-header bg-primary">
+          Ride Detail
+        </div>
+        <div class="card-body">
+          <div class="col-md-12">
+            <table class="table table-hover table-bordered">
+              <thead class='bg-primary'>
+                <tr class="text-center">
+                  <th scope="col">id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Car</th>
+                  <th scope="col">Seats Left</th>
+                  <th scope="col">Pick-up Point</th>
+                  <th scope="col">Destination</th>
+                </tr>
+              </thead>
+              <tbody class='text-center'>
+                <tr>
+                  <td>{{rideDetail.id}}</td>
+                  <td>{{rideDetail.name}}</td>
+                  <td>{{rideDetail.car}}</td>
+                  <td>{{rideDetail.seatsLeft}}</td>
+                  <td>{{rideDetail.pickUp}}</td>
+                  <td>{{rideDetail.destination}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class='text-center'>
+              Booking done. Your booking Id : 101 
+            </p>
+            <div class="button-actions">
+              <button class="btn btn-danger" (click)='cancelRide()'>Cancel Booked Ride</button>
+            </div>
+          </div>
+        </div>
+      </div>
         <div class="button-actions">
             <button class="btn btn-primary" (click)='offerRide()'>Offer A Ride</button>
         </div>
