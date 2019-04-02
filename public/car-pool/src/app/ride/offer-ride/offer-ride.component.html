@@ -4,29 +4,62 @@
   </div>
   <div class="card-body">
     <div class="col-md-12">
-      <form [formGroup]='signInForm' (ngSubmit)='onSubmit()'>
+      <form [formGroup]='offerForm' (ngSubmit)='onSubmit()'>
         <div class="form-group">
           <label for="inputName">Name</label>
-          <input type="text" class="form-control" id="inputName">
+          <input type="text" class="form-control" id="inputName" formControlName="txtName">
+           <span class="help-block"
+            *ngIf="!offerForm.get('txtName').valid && offerForm.get('txtName').touched">
+            <span *ngIf="offerForm.get('txtName').errors['required']">
+              Name is required
+            </span>
+          </span>
         </div>
         <div class="form-group">
           <label for="inputStartLocation">Start Location</label>
-          <input type="text" class="form-control" id="inputStartLocation">
+          <input type="text" class="form-control" id="inputStartLocation" formControlName="txtStart">
+           <span class="help-block"
+            *ngIf="!offerForm.get('txtStart').valid && offerForm.get('txtStart').touched">
+            <span *ngIf="offerForm.get('txtStart').errors['required']">
+              Start Location is required
+            </span>
+          </span>
         </div>
         <div class="form-group">
           <label for="inputDestination">Destination</label>
-          <input type="text" class="form-control" id="inputDestination">
+          <input type="text" class="form-control" id="inputDestination" formControlName="txtDestination">
+          <span class="help-block"
+            *ngIf="!offerForm.get('txtDestination').valid && offerForm.get('txtDestination').touched">
+            <span *ngIf="offerForm.get('txtDestination').errors['required']">
+              Destination is required
+            </span>
+          </span>
         </div>
         <div class="form-group">
           <label for="inputCar">Car</label>
-          <input type="text" class="form-control" id="inputCar">
+          <input type="text" class="form-control" id="inputCar" formControlName="txtCar">
+          <span class="help-block"
+            *ngIf="!offerForm.get('txtCar').valid && offerForm.get('txtCar').touched">
+            <span *ngIf="offerForm.get('txtCar').errors['required']">
+              Car Name is required
+            </span>
+          </span>
         </div>
         <div class="form-group">
           <label for="inputSeat">Seats Available</label>
-          <input type="number" class="form-control" id="inputSeat" max="8" minlength="0">
+          <input type="number" class="form-control" id="inputSeat"formControlName="txtSeat" >
+          <span class="help-block"
+            *ngIf="!offerForm.get('txtSeat').valid && offerForm.get('txtSeat').touched">
+            <span *ngIf="offerForm.get('txtSeat').errors['required']">
+              Seat Limit is required
+            </span>
+             <span *ngIf="offerForm.get('txtSeat').errors['max'] || offerForm.get('txtSeat').errors['min'] ">
+              Seat should be greater than 0 & less than 8
+            </span>
+          </span>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="submit" class="btn btn-primary">Go Back</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!offerForm.valid">Submit</button>
+        <button type="button" class="btn btn-primary" (click)="goBack()">Go Back</button>
       </form>
     </div>
   </div>
