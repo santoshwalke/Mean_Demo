@@ -9,3 +9,7 @@
 .button-actions+.button-actions {
     margin-top: 30px;
 }
+
+.booked-ride-detail {
+    margin-bottom: 10px;
+}

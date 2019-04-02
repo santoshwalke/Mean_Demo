@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Logout <span class="sr-only">(current)</span></a>
+        <a class="nav-link log-out" (click)='logout()' *ngIf="authService.isAuthenticated()">Logout <span class="sr-only">(current)</span></a>
       </li>
     </ul>
   </div>

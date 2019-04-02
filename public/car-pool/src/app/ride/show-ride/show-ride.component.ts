@@ -24,6 +24,9 @@ export class ShowRideComponent implements OnInit {
          this.saveAllRide = this.allRides;
       });
   }
+  bookRide(RideDetails: object) {
+    console.log(RideDetails);
+  }
   offerRide() {
     this.router.navigate(['offer_ride']);
   }
@@ -39,19 +42,19 @@ export class ShowRideComponent implements OnInit {
 
   sortTo() {
     this.allRides = this.saveAllRide.filter((detail: Ride) => {
-        return detail.pickup === this.office;
+        return detail.destination === this.office;
     });
   }
 
   sortFrom() {
     this.allRides = this.saveAllRide.filter((detail: Ride) => {
-        return detail.destination === this.office;
+        return detail.pickUp === this.office;
     });
   }
 
   sortOther() {
     this.allRides = this.saveAllRide.filter((detail: Ride) => {
-        return detail.destination !== this.office && detail.pickup !== this.office;
+        return detail.destination !== this.office && detail.pickUp !== this.office;
     });
   }
 

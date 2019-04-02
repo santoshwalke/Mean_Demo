@@ -15,7 +15,7 @@ export class RideDataService {
     baseUrl = environment.baseUrl;
 
   fetchAllRides() {
-    this.httpClient.get(`${this.baseUrl}/api/show_rides`, {})
+    this.httpClient.get(`${this.baseUrl}/show_rides`, {})
     .subscribe((data: Ride[]) => {
         this.rideService.getRide(data);
     });

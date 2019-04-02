@@ -1,19 +1,95 @@
 const express = require('express');
-const router = require('./routes/router');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
-var app = express();
+const User = require('./models/userModel');
+const Offer = require('./models/offerModel');
+const Ride = require('./models/rideModel');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const app = express();
+const router = express.Router();
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+app.use(cors());
+app.use(bodyParser.json());
+
+mongoose.connect('mongodb://localhost:27017/car');
+
+const connection = mongoose.connection;
+
+connection.once('open', () => {
+    console.log('MongoDB database connection established successfully!');
 });
 
-app.use('/api', router);
+router.post('/login', (req, res) => {
+    User.find({'username': req.body.username, 'password': req.body.password}, (err, data) => {
+        if ( err || !data.length) {
+            res.json({'message': 'failure'});
+        } else {
+            res.status(200).send({'message': 'success', 'userName': data[0].username});
+        }
+    });
+});
 
-app.listen(3000);
+router.get('/show_rides', (req, res) => {
+    Offer.find({}, (err, data) => {
+        if (err || !data.length) {
+            res.json({'status': 'error'});
+        } else {
+            res.json(data);
+        } 
+    });
+});
+
+router.post('/book_ride', (req, res) => {
+    Offer.findOne({'_id': new mongoose.Types.ObjectId(req.body._id)}, (err,data) => {
+        if (err || !data) {
+            res.json({'status': 'error'});
+        } else {
+            data.seatsLeft = parseInt(data.seatsLeft) - 1;
+            data.save()
+            .then(data => {
+                res.status(200).status({'id': req.body.id, 'seatsLeft': data.seatsLeft, message: "Ride booked successfully"})
+            })
+        } 
+    })
+});
+
+router.post('/cancel_ride', (req, res) => {
+    Ride.update({'rideId': req.body.rideId},{$set : {status: 'cancelled'}}, (err, data) => {
+        if (err) {
+            res.json({'status': 'error'});
+        } else if (data) {
+            Offer.update({'id': req.body.rideId},{$inc : {seatsLeft: 1}}, (err, data) => {
+                if (data) {
+                    res.status(200).send({'message': 'Ride cancelled successfully'});
+                }
+            });
+        }
+    });
+});
+
+router.post('/offer_ride', (req,res) => {
+    let offer = new Offer({
+        'name': req.body.name,
+        'pickUp': req.body.pickUp,
+        'destination': req.body.destination,
+        'seatsLeft': req.body.seatsLeft,
+        'car': req.body.car
+    });
+    offer.save()
+    .then(response => {
+        res.status(200).send({'message':'Offer added successfully'});
+    })
+    .catch(err => {
+        res.status(400).send({'message': 'Offer not added'});
+    });
+});
+
+app.use('/', router);
+
+app.listen(3000, () => {
+    console.log('Listing port 3000');
+});
 
 module.exports = app;

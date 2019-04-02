@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-//import { Location } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-offer-ride',
@@ -9,26 +9,26 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 })
 export class OfferRideComponent implements OnInit {
   offerForm: FormGroup;
-  
-  constructor() { }
+
+  constructor(private location: Location ) { }
 
   ngOnInit() {
     this.offerForm = new FormGroup({
-      'txtName': new FormControl('', [Validators.required]),
-      'txtStart': new FormControl('',[Validators.required]), 
-      'txtDestination': new FormControl('',[Validators.required]),
-      'txtCar': new FormControl('',[Validators.required]),
-      'txtSeat':  new FormControl('',[Validators.required, Validators.min(0), Validators.max(8)])
-    })
+      txtName: new FormControl('', [Validators.required]),
+      txtStart: new FormControl('', [Validators.required]),
+      txtDestination: new FormControl('', [Validators.required]),
+      txtCar: new FormControl('', [Validators.required]),
+      txtSeat:  new FormControl('', [Validators.required, Validators.min(0), Validators.max(8)])
+    });
   }
-  
+
   onSubmit() {
     console.log(this.offerForm);
   }
 
   goBack() {
-    //this.location.back();
-    //console.log(this.location);
+    this.location.back();
+    // console.log(this.location);
   }
 
 }

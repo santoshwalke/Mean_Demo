@@ -5,3 +5,7 @@
 .btn + .btn {
     margin-left: 10px;
 }
+
+.help-block {
+    color: #ff0000;
+}
