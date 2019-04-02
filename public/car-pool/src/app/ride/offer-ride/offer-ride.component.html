@@ -58,6 +58,9 @@
             </span>
           </span>
         </div>
+        <span *ngIf="message">
+            {{message}}
+        </span>        
         <button type="submit" class="btn btn-primary" [disabled]="!offerForm.valid">Submit</button>
         <button type="button" class="btn btn-primary" (click)="goBack()">Go Back</button>
       </form>

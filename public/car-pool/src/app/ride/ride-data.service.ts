@@ -20,4 +20,19 @@ export class RideDataService {
         this.rideService.getRide(data);
     });
   }
+
+  setOfferRides(request) {
+    console.log(request);
+    this.httpClient.post(`${this.baseUrl}/offer_ride`, {
+      id: Math.floor(Math.random() * Math.floor(100)),
+      name: request.value.txtName,
+      car: request.value.txtCar,
+      seatsLeft: request.value.txtSeat,
+      pickUp: request.value.txtStart,
+      destination: request.value.txtDestination
+    })
+    .subscribe((data: {message: string}) => {
+        console.log(data);
+    });
+  }
 }
