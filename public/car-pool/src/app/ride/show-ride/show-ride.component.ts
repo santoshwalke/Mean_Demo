@@ -11,6 +11,7 @@ import { RideService } from '../ride.service';
 export class ShowRideComponent implements OnInit {
 
     allRides: Ride[] = [];
+    saveAllRide: Ride[] = [];
     rideDetail: Ride;
     office = 'Infosys';
 
@@ -20,6 +21,7 @@ export class ShowRideComponent implements OnInit {
       this.rideService.rideChanged
       .subscribe((ride: Ride[]) => {
          this.allRides = ride;
+         this.saveAllRide = this.allRides;
       });
   }
   offerRide() {
@@ -35,22 +37,22 @@ export class ShowRideComponent implements OnInit {
       this.router.navigate(['book_ride']);
   }
 
-//   sortTo() {
-//     this.allRides = this.allRides.find((detail: Ride) => {
-//         return detail.pickup === this.office;
-//     });
-//   }
+  sortTo() {
+    this.allRides = this.saveAllRide.find((detail: Ride) => {
+        return detail.pickup === this.office;
+    });
+  }
 
-//   sortFrom() {
-//     this.allRides = this.allRides.find((detail: Ride) => {
-//         return detail.destination === this.office;
-//     });
-//   }
+  sortFrom() {
+    this.allRides = this.saveAllRide.find((detail: Ride) => {
+        return detail.destination === this.office;
+    });
+  }
 
-//   sortOther() {
-//     this.allRides = this.allRides.find((detail: Ride) => {
-//         return detail.destination !== this.office && detail.pickup !== this.office;
-//     });
-//   }
+  sortOther() {
+    this.allRides = this.saveAllRide.find((detail: Ride) => {
+        return detail.destination !== this.office && detail.pickup !== this.office;
+    });
+  }
 
 }
