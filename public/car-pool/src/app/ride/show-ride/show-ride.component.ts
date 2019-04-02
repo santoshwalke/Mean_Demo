@@ -38,19 +38,19 @@ export class ShowRideComponent implements OnInit {
   }
 
   sortTo() {
-    this.allRides = this.saveAllRide.find((detail: Ride) => {
+    this.allRides = this.saveAllRide.filter((detail: Ride) => {
         return detail.pickup === this.office;
     });
   }
 
   sortFrom() {
-    this.allRides = this.saveAllRide.find((detail: Ride) => {
+    this.allRides = this.saveAllRide.filter((detail: Ride) => {
         return detail.destination === this.office;
     });
   }
 
   sortOther() {
-    this.allRides = this.saveAllRide.find((detail: Ride) => {
+    this.allRides = this.saveAllRide.filter((detail: Ride) => {
         return detail.destination !== this.office && detail.pickup !== this.office;
     });
   }
