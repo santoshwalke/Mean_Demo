@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { RideDataService } from '../ride-data.service';
+import { RideService } from '../ride.service';
 
 @Component({
   selector: 'app-book-ride',
@@ -10,9 +11,14 @@ import { RideDataService } from '../ride-data.service';
 })
 export class BookRideComponent implements OnInit {
 
-  constructor(private router: Router, private rideDataService: RideDataService) { }
-
+  constructor(private router: Router, private rideDataService: RideDataService, private rideService: RideService) { }
+  bookRideDetails = {};
+  
   ngOnInit() {
+    this.rideService.getBookRideDetails
+    .subscribe(rideDetail => {
+        this.bookRideDetails = rideDetail;
+      });
   }
 
   showAllRide() {
