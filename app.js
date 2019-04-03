@@ -42,16 +42,26 @@ router.get('/show_rides', (req, res) => {
 });
 
 router.post('/book_ride', (req, res) => {
-    Offer.findOne({'_id': new mongoose.Types.ObjectId(req.body._id)}, (err,data) => {
+    Offer.update({'_id': new mongoose.Types.ObjectId(req.body._id)}, {$inc : {seatsLeft : -1}}, (err, data) {
         if (err || !data) {
             res.json({'status': 'error'});
-        } else {
-            data.seatsLeft = parseInt(data.seatsLeft) - 1;
-            data.save()
-            .then(data => {
-                res.status(200).status({'id': req.body.id, 'seatsLeft': data.seatsLeft, message: "Ride booked successfully"})
+        } else if (data) {
+            let ride = new Ride({
+                'rideId': req.body.id,
+                'riderName': req.body.name,
+                'rideeName' : req.body.username,
+                'pickUp': req.body.pickUp,
+                'destination': req.body.destination,
+                'status': 'Booked'
+            });
+            ride.save()
+            .then(response => {
+                res.status(200).status({'id': req.body.id, 'rideData': data, message: "Ride booked successfully"})
             })
-        } 
+            .catch(err => {
+                res.status(400).send({'message': 'ride not booked'});
+            }); 
+        }
     })
 });
 
