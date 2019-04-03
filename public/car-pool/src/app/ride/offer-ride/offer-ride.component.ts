@@ -25,6 +25,11 @@ export class OfferRideComponent implements OnInit {
       txtCar: new FormControl('', [Validators.required]),
       txtSeat:  new FormControl('', [Validators.required, Validators.min(0), Validators.max(8)])
     });
+    
+    this.rideService.offerRideResponseChanged
+    .subscribe(message => {
+          this.message = message;
+      });
   }
 
   onSubmit() {
