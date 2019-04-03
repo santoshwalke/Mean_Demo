@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Ride } from '../ride.model';
+
+import { RideDataService } from '../ride-data.service';
 import { RideService } from '../ride.service';
 
 @Component({
@@ -25,7 +27,7 @@ export class ShowRideComponent implements OnInit {
       });
   }
   bookRide(RideDetails: object) {
-    console.log(RideDetails);
+    this.rideDataService.bookRide(RideDetails);
   }
   offerRide() {
     this.router.navigate(['offer_ride']);
