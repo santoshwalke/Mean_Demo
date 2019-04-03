@@ -9,6 +9,7 @@ export class RideService {
     rideChanged = new Subject<Ride[]>();
     bookRideChanged = new Subject<{id: number, rideData: object, message: string}>();
     offerRideResponseChanged = new Subject<string>();
+    CancelRideResponseChanged = new Subject<string>();
     
   constructor() { }
 
@@ -22,5 +23,9 @@ export class RideService {
   
   offerRideResponse(data: {message: string}) {
     this.offerRideResponseChanged.next(data.message);
+  }
+  
+  getCancelRideRes(data: {message: string}) {
+    this.CancelRideResponseChanged.next(data.message);
   }
 }
