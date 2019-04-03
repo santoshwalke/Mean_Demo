@@ -6,6 +6,7 @@ import { PageNotFoundComponent } from './core/page-not-found/page-not-found.comp
 import { BookRideComponent } from './ride/book-ride/book-ride.component';
 import { ShowRideComponent } from './ride/show-ride/show-ride.component';
 import { OfferRideComponent } from './ride/offer-ride/offer-ride.component';
+import { CancelRideComponent  } from './ride/cancel-ride/cancel-ride.component';
 import { AuthGuardService } from './auth/auth-guard.service';
 
 const routes: Routes = [
@@ -16,6 +17,9 @@ const routes: Routes = [
         path: '',
         redirectTo: '/login',
         pathMatch: 'full'
+    },
+    {
+        path: 'cancel_ride', component: CancelRideComponent, canActivate: [AuthGuardService]
     },
     {
         path: 'show_ride', component: ShowRideComponent, canActivate: [AuthGuardService]
