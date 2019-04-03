@@ -32,6 +32,7 @@ export class BookRideComponent implements OnInit {
   
   cancelRide(rideId: number) {
     this.rideDataService.cancelRide(rideId);
+    this.router.navigate(['cancel_ride']);    
   }
 
 }
