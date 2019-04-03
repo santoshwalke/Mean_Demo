@@ -9,7 +9,7 @@
 
     <div class="col-md-12">
         <div class="button-actions">
-            <button class="btn btn-primary" (click)='showAllRide()'>Show All Rides</button>
+            <button class="btn btn-primary" (click)='showAllRide()' [disabled]="bookRideDetails.id">Show All Rides</button>
         </div>
       <div class="card booked-ride-detail" *ngIf='bookRideDetails.id'>
        <div class="card-header bg-primary">
