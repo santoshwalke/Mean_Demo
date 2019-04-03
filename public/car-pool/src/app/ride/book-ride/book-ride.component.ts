@@ -29,5 +29,9 @@ export class BookRideComponent implements OnInit {
   offerRide() {
     this.router.navigate(['offer_ride']);
   }
+  
+  cancelRide(rideId: number) {
+    this.rideDataService.cancelRide(rideId);
+  }
 
 }
