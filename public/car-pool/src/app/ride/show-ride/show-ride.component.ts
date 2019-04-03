@@ -28,6 +28,7 @@ export class ShowRideComponent implements OnInit {
   }
   bookRide(RideDetails: object) {
     this.rideDataService.bookRide(RideDetails);
+    this.router.navigate(['book_ride']);
   }
   offerRide() {
     this.router.navigate(['offer_ride']);
