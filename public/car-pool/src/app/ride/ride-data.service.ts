@@ -4,13 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { RideService } from './ride.service';
 import { Ride } from './ride.model';
+import { AuthService } from '../auth/auth-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RideDataService {
 
-  constructor(private httpClient: HttpClient, private rideService: RideService) { }
+  constructor(private httpClient: HttpClient, private rideService: RideService, private authService: AuthService) { }
 
     baseUrl = environment.baseUrl;
 
@@ -32,7 +33,20 @@ export class RideDataService {
       destination: request.value.txtDestination
     })
     .subscribe((data: {message: string}) => {
-        console.log(data);
+        this.rideService.offerRideResponse(data);
+    });
+  }
+  
+  bookRide(rideDetails) {
+    this.httpClient.post(`${this.baseUrl}/book_ride`, {
+      id : rideDetails.id,
+      name: rideDetails.name,
+      username: this.authService.getUserName(),
+      pickUp: rideDetails.pickUp,
+      destination: rideDetails.destination      
+    })
+    .subscribe((data: {id: number, rideData: object, message: string}) => {
+        this.rideService.getBookRideDetails(data);
     });
   }
 }
