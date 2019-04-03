@@ -11,7 +11,7 @@
         <div class="button-actions">
             <button class="btn btn-primary" (click)='showAllRide()'>Show All Rides</button>
         </div>
-      <div class="card booked-ride-detail">
+      <div class="card booked-ride-detail" *ngIf='bookRideDetails.id'>
        <div class="card-header bg-primary">
           Ride Detail
         </div>
@@ -29,21 +29,21 @@
                 </tr>
               </thead>
               <tbody class='text-center'>
-                <!-- <tr>
-                  <td>{{rideDetail.id}}</td>
-                  <td>{{rideDetail.name}}</td>
-                  <td>{{rideDetail.car}}</td>
-                  <td>{{rideDetail.seatsLeft}}</td>
-                  <td>{{rideDetail.pickUp}}</td>
-                  <td>{{rideDetail.destination}}</td>
-                </tr> -->
+                <tr>
+                  <td>{{bookRideDetails.rideData.id}}</td>
+                  <td>{{bookRideDetails.rideData.name}}</td>
+                  <td>{{bookRideDetails.rideData.car}}</td>
+                  <td>{{bookRideDetails.rideData.seatsLeft}}</td>
+                  <td>{{bookRideDetails.rideData.pickUp}}</td>
+                  <td>{{bookRideDetails.rideData.destination}}</td>
+                </tr>
               </tbody>
             </table>
             <p class='text-center'>
-              Booking done. Your booking Id : 101 
+              Booking done. Your booking Id : {{bookRideDetails.id}} 
             </p>
             <div class="button-actions">
-              <button class="btn btn-danger" (click)='cancelRide()'>Cancel Booked Ride</button>
+              <button class="btn btn-danger" (click)="cancelRide(bookRideDetails.id)">Cancel Booked Ride</button>
             </div>
           </div>
         </div>
