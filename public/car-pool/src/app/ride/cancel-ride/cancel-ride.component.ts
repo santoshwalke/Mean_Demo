@@ -12,8 +12,13 @@ export class CancelRideComponent implements OnInit {
 
   constructor(private router: Router, private rideDataService: RideDataService) { }
   bookRideDetails = {};
+  message = '';
   
   ngOnInit() {
+    this.RideDataService.CancelRideResponseChanged
+      .subscribe(message => {
+          this.message = message;
+      });
   }
 
   showAllRide() {
