@@ -5,8 +5,8 @@ import { RideDataService } from '../ride-data.service';
 
 @Component({
   selector: 'app-cancel-ride',
-  templateUrl: './book-ride.component.html',
-  styleUrls: ['./book-ride.component.css']
+  templateUrl: './cancel-ride.component.html',
+  styleUrls: ['./cancel-ride.component.css']
 })
 export class CancelRideComponent implements OnInit {
 
