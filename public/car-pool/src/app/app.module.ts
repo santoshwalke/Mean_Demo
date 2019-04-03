@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from './core/page-not-found/page-not-found.comp
 import { BookRideComponent } from './ride/book-ride/book-ride.component';
 import { ShowRideComponent } from './ride/show-ride/show-ride.component';
 import { OfferRideComponent } from './ride/offer-ride/offer-ride.component';
+import { CancelRideComponent  } from './ride/cancel-ride/cancel-ride.component';
 
 import { AuthGuardService } from './auth/auth-guard.service';
 
@@ -22,7 +23,8 @@ import { AuthGuardService } from './auth/auth-guard.service';
     PageNotFoundComponent,
     BookRideComponent,
     ShowRideComponent,
-    OfferRideComponent
+    OfferRideComponent,
+    CancelRideComponent
   ],
   imports: [
     BrowserModule,
