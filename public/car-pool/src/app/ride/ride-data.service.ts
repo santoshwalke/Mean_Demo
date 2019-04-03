@@ -36,7 +36,16 @@ export class RideDataService {
         this.rideService.offerRideResponse(data);
     });
   }
-  
+  cancelRide(rideId) {
+    this.httpClient.post(`${this.baseUrl}/cancel_ride`, {
+        rideId : rideId
+      })
+      .subscribe((data: {message: string}) => {
+         this.rideService.cancelRideResponse(data);
+      });
+    }
+  }
+
   bookRide(rideDetails) {
     this.httpClient.post(`${this.baseUrl}/book_ride`, {
       id : rideDetails.id,
