@@ -17,7 +17,7 @@ export class ShowRideComponent implements OnInit {
     rideDetail: Ride;
     office = 'Infosys';
 
-  constructor(private router: Router, private rideService: RideService) { }
+  constructor(private router: Router, private rideService: RideService, private rideDataService: RideDataService) { }
 
   ngOnInit() {
       this.rideService.rideChanged

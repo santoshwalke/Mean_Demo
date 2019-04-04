@@ -7,7 +7,7 @@ let Offer = new Schema({
     'car': String,
     'seatsLeft': Number,
     'pickUp': String,
-    'drop': String
+    'destination': String
 });
 
 module.exports = mongooes.model('Offer', Offer, 'Offers');

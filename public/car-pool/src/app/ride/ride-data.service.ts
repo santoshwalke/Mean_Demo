@@ -10,6 +10,7 @@ import { AuthService } from '../auth/auth-service';
   providedIn: 'root'
 })
 export class RideDataService {
+    cancelRideResponseChanged: any;
 
   constructor(private httpClient: HttpClient, private rideService: RideService, private authService: AuthService) { }
 
@@ -25,7 +26,7 @@ export class RideDataService {
   setOfferRides(request) {
     console.log(request);
     this.httpClient.post(`${this.baseUrl}/offer_ride`, {
-      id: Math.floor(Math.random() * Math.floor(100)),
+      id: Math.floor(Math.random() * Math.floor(1001)),
       name: request.value.txtName,
       car: request.value.txtCar,
       seatsLeft: request.value.txtSeat,
@@ -36,26 +37,26 @@ export class RideDataService {
         this.rideService.offerRideResponse(data);
     });
   }
+
   cancelRide(rideId) {
     this.httpClient.post(`${this.baseUrl}/cancel_ride`, {
-        rideId : rideId
+        rideId
       })
       .subscribe((data: {message: string}) => {
-         this.rideService.cancelRideResponse(data);
+         this.rideService.getCancelRideRes(data);
       });
     }
-  }
 
   bookRide(rideDetails) {
     this.httpClient.post(`${this.baseUrl}/book_ride`, {
-      id : rideDetails.id,
-      name: rideDetails.name,
-      username: this.authService.getUserName(),
-      pickUp: rideDetails.pickUp,
-      destination: rideDetails.destination      
-    })
-    .subscribe((data: {id: number, rideData: object, message: string}) => {
-        this.rideService.getBookRideDetails(data);
-    });
-  }
+        id : rideDetails.id,
+        name: rideDetails.name,
+        username: this.authService.getUserName(),
+        pickUp: rideDetails.pickUp,
+        destination: rideDetails.destination,
+        })
+        .subscribe((data: {id: number, rideData: object, message: string}) => {
+            this.rideService.getBookRideDetails(data);
+        });
+    }
 }

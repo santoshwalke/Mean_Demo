@@ -42,7 +42,7 @@ router.get('/show_rides', (req, res) => {
 });
 
 router.post('/book_ride', (req, res) => {
-    Offer.update({'_id': new mongoose.Types.ObjectId(req.body._id)}, {$inc : {seatsLeft : -1}}, (err, data) {
+    Offer.updateOne({'_id': new mongoose.Types.ObjectId(req.body._id)}, {$inc : {seatsLeft : -1}}, (err, data) => {
         if (err || !data) {
             res.json({'status': 'error'});
         } else if (data) {
@@ -56,21 +56,21 @@ router.post('/book_ride', (req, res) => {
             });
             ride.save()
             .then(response => {
-                res.status(200).status({'id': req.body.id, 'rideData': data, message: "Ride booked successfully"})
+                res.status(200).send({'id': req.body.id, 'rideData': req.body, message: "Ride booked successfully"})
             })
             .catch(err => {
                 res.status(400).send({'message': 'ride not booked'});
             }); 
         }
-    })
+    });
 });
 
 router.post('/cancel_ride', (req, res) => {
-    Ride.update({'rideId': req.body.rideId},{$set : {status: 'cancelled'}}, (err, data) => {
+    Ride.updateOne({'rideId': req.body.rideId},{$set : {status: 'cancelled'}}, (err, data) => {
         if (err) {
             res.json({'status': 'error'});
         } else if (data) {
-            Offer.update({'id': req.body.rideId},{$inc : {seatsLeft: 1}}, (err, data) => {
+            Offer.updateOne({'id': req.body.rideId},{$inc : {seatsLeft: 1}}, (err, data) => {
                 if (data) {
                     res.status(200).send({'message': 'Ride cancelled successfully'});
                 }
@@ -81,6 +81,7 @@ router.post('/cancel_ride', (req, res) => {
 
 router.post('/offer_ride', (req,res) => {
     let offer = new Offer({
+        'id': req.body.id,
         'name': req.body.name,
         'pickUp': req.body.pickUp,
         'destination': req.body.destination,

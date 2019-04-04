@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { RideDataService } from '../ride-data.service';
 import { RideService } from '../ride.service';
@@ -14,7 +14,9 @@ export class OfferRideComponent implements OnInit {
   offerForm: FormGroup;
   message = '';
 
-  constructor(private location: Location, private rideDataService: RideDataService, private rideService: RideService) { }
+  constructor(private rideDataService: RideDataService,
+              private rideService: RideService,
+              private router: Router) { }
 
   ngOnInit() {
 
@@ -25,7 +27,7 @@ export class OfferRideComponent implements OnInit {
       txtCar: new FormControl('', [Validators.required]),
       txtSeat:  new FormControl('', [Validators.required, Validators.min(0), Validators.max(8)])
     });
-    
+
     this.rideService.offerRideResponseChanged
     .subscribe(message => {
           this.message = message;
@@ -37,7 +39,7 @@ export class OfferRideComponent implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['book_ride']);
   }
 
 }

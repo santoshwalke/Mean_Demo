@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { RideDataService } from '../ride-data.service';
+import { RideService } from '../ride.service';
 
 @Component({
   selector: 'app-cancel-ride',
@@ -10,12 +11,12 @@ import { RideDataService } from '../ride-data.service';
 })
 export class CancelRideComponent implements OnInit {
 
-  constructor(private router: Router, private rideDataService: RideDataService) { }
+  constructor(private router: Router, private rideDataService: RideDataService, private rideService: RideService) { }
   bookRideDetails = {};
   message = '';
-  
+
   ngOnInit() {
-    this.RideDataService.CancelRideResponseChanged
+    this.rideService.cancelRideResponseChanged
       .subscribe(message => {
           this.message = message;
       });

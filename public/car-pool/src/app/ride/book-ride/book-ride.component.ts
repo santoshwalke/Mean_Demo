@@ -13,9 +13,9 @@ export class BookRideComponent implements OnInit {
 
   constructor(private router: Router, private rideDataService: RideDataService, private rideService: RideService) { }
   bookRideDetails = {};
-  
+
   ngOnInit() {
-    this.rideService.getBookRideDetails
+    this.rideService.bookRideChanged
     .subscribe(rideDetail => {
         this.bookRideDetails = rideDetail;
       });
@@ -29,10 +29,10 @@ export class BookRideComponent implements OnInit {
   offerRide() {
     this.router.navigate(['offer_ride']);
   }
-  
+
   cancelRide(rideId: number) {
     this.rideDataService.cancelRide(rideId);
-    this.router.navigate(['cancel_ride']);    
+    this.router.navigate(['cancel_ride']);
   }
 
 }
