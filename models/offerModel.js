@@ -1,7 +1,8 @@
-const mongooes = require('mongoose');
-const Schema = mongooes.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 let Offer = new Schema({
+    '_id': mongoose.Schema.Types.ObjectId,
     'id': Number,
     'name': String,
     'car': String,
@@ -10,4 +11,4 @@ let Offer = new Schema({
     'destination': String
 });
 
-module.exports = mongooes.model('Offer', Offer, 'Offers');
+module.exports = mongoose.model('Offer', Offer, 'Offers');

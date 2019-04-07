@@ -13,7 +13,7 @@ const router = express.Router();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/car');
+mongoose.connect('mongodb://localhost:27017/car', { useNewUrlParser: true });
 
 const connection = mongoose.connection;
 
@@ -42,35 +42,70 @@ router.get('/show_rides', (req, res) => {
 });
 
 router.post('/book_ride', (req, res) => {
-    Offer.updateOne({'_id': new mongoose.Types.ObjectId(req.body._id)}, {$inc : {seatsLeft : -1}}, (err, data) => {
-        if (err || !data) {
-            res.json({'status': 'error'});
-        } else if (data) {
-            let ride = new Ride({
-                'rideId': req.body.id,
-                'riderName': req.body.name,
-                'rideeName' : req.body.username,
-                'pickUp': req.body.pickUp,
-                'destination': req.body.destination,
-                'status': 'Booked'
-            });
-            ride.save()
-            .then(response => {
-                res.status(200).send({'id': req.body.id, 'rideData': req.body, message: "Ride booked successfully"})
-            })
-            .catch(err => {
-                res.status(400).send({'message': 'ride not booked'});
-            }); 
+    console.log(req.body._id);
+    Offer.updateOne(
+        {
+            '_id': new mongoose.Types.ObjectId(req.body._id)
+        },
+        {
+            $inc : { seatsLeft: -1}
         }
+    )
+    .exec()
+    .then(result => {
+        let ride = new Ride({
+            'rideId': req.body.id,
+            'riderName': req.body.name,
+            'rideeName' : req.body.username,
+            'pickUp': req.body.pickUp,
+            'destination': req.body.destination,
+            'status': 'Booked'
+        });
+        ride.save()
+        .then(result => {
+            Offer.findOne(
+                {'_id': new mongoose.Types.ObjectId(req.body._id)}
+            )
+            .exec()
+            .then(offerResult => {
+                console.log(offerResult);
+                res.status(200).send({'id': req.body.id, 'rideData': offerResult, message: "Ride booked successfully"})
+            });
+        })
+    })
+    .catch(err => {
+        res.status(400).send({'message': 'ride not booked'});
     });
+
+    // Offer.update({'_id': new mongoose.Types.ObjectId(req.body._id)}, {$inc : {seatsLeft : -1}}, (err, data) => {
+    //     if (err || !data) {
+    //         res.json({'status': 'error'});
+    //     } else if (data) {
+    //         let ride = new Ride({
+    //             'rideId': req.body.id,
+    //             'riderName': req.body.name,
+    //             'rideeName' : req.body.username,
+    //             'pickUp': req.body.pickUp,
+    //             'destination': req.body.destination,
+    //             'status': 'Booked'
+    //         });
+    //         ride.save()
+    //         .then(response => {
+    //             res.status(200).send({'id': req.body.id, 'rideData': req.body, message: "Ride booked successfully"})
+    //         })
+    //         .catch(err => {
+    //             res.status(400).send({'message': 'ride not booked'});
+    //         }); 
+    //     }
+    // });
 });
 
 router.post('/cancel_ride', (req, res) => {
-    Ride.updateOne({'rideId': req.body.rideId},{$set : {status: 'cancelled'}}, (err, data) => {
+    Ride.update({'rideId': req.body.rideId},{$set : {status: 'cancelled'}}, (err, data) => {
         if (err) {
             res.json({'status': 'error'});
         } else if (data) {
-            Offer.updateOne({'id': req.body.rideId},{$inc : {seatsLeft: 1}}, (err, data) => {
+            Offer.update({'id': req.body.rideId},{$inc : {seatsLeft: 1}}, (err, data) => {
                 if (data) {
                     res.status(200).send({'message': 'Ride cancelled successfully'});
                 }

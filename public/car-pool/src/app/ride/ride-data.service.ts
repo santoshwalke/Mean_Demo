@@ -49,6 +49,7 @@ export class RideDataService {
 
   bookRide(rideDetails) {
     this.httpClient.post(`${this.baseUrl}/book_ride`, {
+        _id : rideDetails._id,
         id : rideDetails.id,
         name: rideDetails.name,
         username: this.authService.getUserName(),
