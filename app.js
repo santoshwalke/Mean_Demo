@@ -76,28 +76,6 @@ router.post('/book_ride', (req, res) => {
     .catch(err => {
         res.status(400).send({'message': 'ride not booked'});
     });
-
-    // Offer.update({'_id': new mongoose.Types.ObjectId(req.body._id)}, {$inc : {seatsLeft : -1}}, (err, data) => {
-    //     if (err || !data) {
-    //         res.json({'status': 'error'});
-    //     } else if (data) {
-    //         let ride = new Ride({
-    //             'rideId': req.body.id,
-    //             'riderName': req.body.name,
-    //             'rideeName' : req.body.username,
-    //             'pickUp': req.body.pickUp,
-    //             'destination': req.body.destination,
-    //             'status': 'Booked'
-    //         });
-    //         ride.save()
-    //         .then(response => {
-    //             res.status(200).send({'id': req.body.id, 'rideData': req.body, message: "Ride booked successfully"})
-    //         })
-    //         .catch(err => {
-    //             res.status(400).send({'message': 'ride not booked'});
-    //         }); 
-    //     }
-    // });
 });
 
 router.post('/cancel_ride', (req, res) => {
@@ -116,6 +94,7 @@ router.post('/cancel_ride', (req, res) => {
 
 router.post('/offer_ride', (req,res) => {
     let offer = new Offer({
+        _id : new mongoose.Types.ObjectId(),
         'id': req.body.id,
         'name': req.body.name,
         'pickUp': req.body.pickUp,

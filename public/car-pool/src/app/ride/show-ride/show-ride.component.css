@@ -27,3 +27,7 @@ table thead {
 .ride-detail{
     margin-bottom: 10px;
 }
+
+.btn:active {
+    background-color: #17a2b8 !important;
+}
